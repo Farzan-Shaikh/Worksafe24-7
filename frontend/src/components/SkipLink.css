@@ -1,19 +1,24 @@
+/* Restyled to the forest/ivory identity; behaviour unchanged (hidden until focused) */
 .skip-link {
-  position: absolute;
-  top: -40px;
-  left: 0;
-  background: #B93632;
-  color: white;
-  padding: 8px 16px;
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  transform: translateY(-160%);
+  background: #171613;
+  color: #F6F4EF;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-family: Manrope, system-ui, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
   text-decoration: none;
-  font-weight: 600;
   z-index: 100;
-  border-radius: 0 0 4px 0;
-  transition: top 0.3s;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .skip-link:focus {
-  top: 0;
-  outline: 3px solid #FCD34D;
+  transform: translateY(0);
+  outline: 2px solid #F6F4EF;
   outline-offset: 2px;
+  box-shadow: 0 0 0 4px #171613;
 }

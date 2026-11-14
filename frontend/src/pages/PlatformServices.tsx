@@ -1,522 +1,248 @@
-import React, { useState, useRef } from "react";
-import { motion } from "framer-motion";
-import { useInView } from "react-intersection-observer";
-import { Link } from "react-router-dom";
-import { Users, Phone, CheckCircle, ArrowRight, TriangleAlert, Star, Lightbulb, MapPin, MessageCircleDashed as MessageCircle, Smartphone, Handshake, UserCheck, Wallet, ShieldCheck, TrendingUp, Activity, Zap, HeartPulse, Headphones, Smile, } from "lucide-react";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import LazyImage from "../components/LazyImage";
+import { Link } from 'react-router-dom'
+import { ArrowRight, ArrowUpRight, Phone, Star } from 'lucide-react'
+import PageShell from '../components/layout/PageShell'
+import PageHero from '../components/layout/PageHero'
+import SEOHead from '../components/SEOHead'
+import GridLines from '../components/ui/GridLines'
+import MaskedImage from '../components/ui/MaskedImage'
+import Reveal, { MaskedLines } from '../components/ui/Reveal'
+import SectionIntro from '../components/ui/SectionIntro'
+import StepEdge from '../components/ui/StepEdge'
+import SafetyNetworkFigure from '../components/illustrations/SafetyNetworkFigure'
+import PhoneFrame from '../components/ui/PhoneFrame'
+import { ServicesGridScreen } from '../components/app/AppScreens'
+import PlanComparison from '../components/platform/PlanComparison'
+import {
+  ADVANTAGES,
+  BENEFITS,
+  COMMUNITY,
+  OFFER,
+  PLANS_COPY,
+  PLATFORM_CTA,
+  PLATFORM_HERO,
+  WHAT_IS,
+} from '../data/platform'
+import { PLAY_STORE_URL } from '../data/site'
 
-const PlatformServices = () => {
-  const [activeTab, setActiveTab] = useState("workforce");
-  const [plansRef, plansInView] = useInView({
-    threshold: 0.3,
-    triggerOnce: true,
-  });
-  const [safetyCommunityRef, safetyCommunityInView] = useInView({
-    threshold: 0.3,
-    triggerOnce: true,
-  });
 
-  // 👇 new ref for app section animation
-  const [appSectionRef, appSectionInView] = useInView({
-    threshold: 0.3,
-    triggerOnce: true,
-  });
+const PlatformServices = () => (
+  <PageShell header="overlay">
+    <SEOHead
+      title="Platform Services"
+      description={`${OFFER.before}${OFFER.strong}${OFFER.after}`}
+      url="https://worksafe247.com/platform-services"
+    />
 
-  const subscriptionPlans = [
-    {
-      name: "Basic",
-      price: "299",
-      features: [
-        "SOS Emergency Help",
-        "24 /7 Safety Desk",
-        "RSA",
-        "Travel safe",
-        "Safety Return QR( 2 QR)",
-        "PoSH Service",
-        "Health & wellness",
-        "News Board",
-      ],
-    },
-    {
-      name: "Advanced",
-      price: "499",
-      features: [
-        "SOS Emergency Help",
-        "24 /7 Safety Desk",
-        "RSA",
-        "Travel safe",
-        "Safety Return QR(4 QR)",
-        "PoSH Service",
-        "Health & wellness",
-        "News Board",
-        "Ambulance",
-      ],
-    },
-    {
-      name: "Premium",
-      price: "999",
-      features: [
-        "SOS Emergency Help",
-        "24 /7 Safety Desk",
-        "RSA",
-        "Travel safe",
-        "Safety Return QR(6 QR)",
-        "PoSH Service",
-        "Health & wellness",
-        "News Board",
-        "Ambulance",
-        "Posh Online",
-        "Fire safety Online",
-      ],
-    },
-    {
-      name: "Premium Plus",
-      price: "1999",
-      features: [
-        "SOS Emergency Help",
-        "24 /7 Safety Desk",
-        "RSA",
-        "Travel safe",
-        "Safety Return QR(6 QR)",
-        "PoSH Service",
-        "Health & wellness",
-        "News Board",
-        "Ambulance",
-        "Posh On-Site",
-        "Fire safety On-Site",
-      ],
-    },
-  ];
-
-  return (
-    <div className="min-h-screen">
-      <Header />
-       {/* Banner Section */}
-       <section className="w-full bg-gradient-to-br from-orange-50 via-red-50 to-orange-50">
-              {/* Top Red Banner */}
-              <div className="bg-gradient-to-r from-red-600 via-red-700 to-red-600 py-10 sm:py-14 text-center shadow-lg">
-                <motion.div
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8 }}
-                >
-                  <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-wide leading-tight">
-                    Why Choose WorkSafe24/7-Always ON ?
-                  </h1>
-                 
-                </motion.div>
-              </div>
-
-              {/* Main Content */}
-              <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-                  {/* Left Side Text */}
-                  <motion.div
-                    initial={{ opacity: 0, x: -50 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
-                    className="space-y-10 lg:order-1 order-2"
-                  >
-                    <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
-                      What is <span className="text-red-600">WorkSafe 24/7 ?</span>
-                    </h3>
-                    <ul className="space-y-8">
-                      {[
-                        "Employee Travel Risk Management.",
-                        "24/7 Travel Safety Station.",
-                        "Duty of Care compliance."
-                      ].map((item, index) => (
-                        <motion.li
-                          key={index}
-                          initial={{ opacity: 0, x: -20 }}
-                          whileInView={{ opacity: 1, x: 0 }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 0.5, delay: index * 0.2 + 0.3 }}
-                          className="flex items-center space-x-4 p-4 bg-white rounded-xl shadow-sm border border-red-100 hover:shadow-md transition-all duration-300"
-                        >
-                          <div className="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center flex-shrink-0">
-                            <CheckCircle className="w-6 h-6 text-red-600" />
-                          </div>
-                          <span className="text-lg sm:text-xl font-semibold text-gray-800">
-                            {item}
-                          </span>
-                        </motion.li>
-                      ))}
-                    </ul>
-                  </motion.div>
-
-                  {/* Right Side Image */}
-                  <motion.div
-                    initial={{ opacity: 0, x: 50 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
-                    className="relative lg:order-2 order-1"
-                  >
-                    <div className="absolute inset-0 bg-red-600 rounded-2xl transform opacity-10 blur-xl"></div>
-                    <LazyImage
-                      src="images/PS.webp"
-                      alt="WorkSafe Context - What You Carry Inside"
-                      className="relative w-full h-auto rounded-2xl shadow-xl object-cover transform hover:scale-[1.02] transition-transform duration-500"
-                    />
-                  </motion.div>
-                </div>
-              </div>
-            </section>
-
-      {/* Hero Section */} 
-      <section className="relative py-20 bg-gradient-to-br from-red-600 via-red-700 to-red-600 ">
-        <div className="absolute inset-0" />
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.h1
-            className="text-5xl md:text-6xl font-bold text-white mb-6"
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-             What do we offer?
-          </motion.h1>
-          <motion.p
-            className="text-xl text-gray-300 max-w-6xl mx-auto"
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            We provide a comprehensive {" "}<span className="font-bold">
-                  Employee Travel Risk Management Platform 
-                   </span>{" "} for Employee Travel Safety & Wellbeing, integrating Physical Safety, Mental Wellbeing, and Travel Risk Management into a unified employee duty-of-care safety ecosystem. 
-          </motion.p>
+    {/* 1. Hero with the network drawing (shown whole) */}
+    <PageHero
+      tone="forest"
+      size="lg"
+      titleLines={PLATFORM_HERO.titleLines}
+      crumbs={[{ name: 'Home', to: '/' }, { name: 'Platform' }]}
+      art={
+        <div className="pt-8 opacity-85">
+          <SafetyNetworkFigure maxWidth="max-w-[min(760px,78svh)]" />
         </div>
-      </section>
+      }
+    />
 
-      {/* Services Benefits Section */}
-      <section ref={safetyCommunityRef} className="py-20 bg-gradient-to-br from-orange-50 via-red-50 to-orange-50 border-t border-b border-red-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            animate={safetyCommunityInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8 }}
-          >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Travel Risk Management Benefits <span className="text-red-600"></span>
-            </h2>
-            <div className="w-52 h-1 bg-red-600 mx-auto rounded-full" />
-          </motion.div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
-            {[
-              { icon: Smartphone, title: "Unified Ecosystem", desc: "A single app for employee travel risk management." },
-              { icon: Handshake, title: "Employee Trust", desc: "Strengthen employee morale and trust" },
-              { icon: UserCheck, title: "Retention Boost", desc: "Reduced attrition and absenteeism" },
-              { icon: Wallet, title: "Cost Savings", desc: "Lower insurance premium" },
-              { icon: ShieldCheck, title: "Supports Compliances", desc: "Ensure compliance with risk, legal, and Duty of Care Travel Safety." },
-              { icon: TrendingUp, title: "High ROI", desc: "Tangible return on investment" },
-              { icon: Activity, title: "Smart Analytics", desc: "Real-time usage dashboard for measuring ROI" },
-              { icon: CheckCircle, title: "24/7 Safety Desk", desc: "Employees receive 24/7 support in the event of travel emergencies." },
-            ].map((item, index) => (
-              <motion.div
-                key={index}
-                className="bg-white rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-red-50 group flex flex-col min-h-[200px]"
-                initial={{ opacity: 0, y: 30 }}
-                animate={safetyCommunityInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ y: -5 }}
+    {/* 2. What is WorkSafe 24/7 ? */}
+    <section aria-labelledby="whatis-title" className="relative bg-ivory-200">
+      <GridLines tone="ivory" />
+      <div className="ws-shell relative grid grid-cols-1 gap-12 py-20 sm:py-28 lg:grid-cols-12 lg:gap-6 lg:py-36">
+        <div className="flex flex-col lg:col-span-6">
+          <h2 id="whatis-title" className="ws-display text-display-lg">
+            <MaskedLines lines={WHAT_IS.titleLines} />
+          </h2>
+          <ol className="mt-12 border-t border-forest-700/25 lg:mt-auto">
+            {WHAT_IS.points.map((p, i) => (
+              <Reveal
+                as="li"
+                key={p}
+                delay={i * 0.1}
+                className="border-b border-forest-700/25 py-6"
               >
-                <div className="w-12 h-12 md:w-14 md:h-14 bg-white rounded-xl flex items-center justify-center mb-4 md:mb-6 mx-auto shadow-sm group-hover:bg-red-600 transition-colors duration-300">
-                  <item.icon className="w-6 h-6 md:w-7 md:h-7 text-red-600 group-hover:text-white transition-colors duration-300" />
-                </div>
-                <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2 md:mb-3 text-center">{item.title}</h3>
-                <p className="text-sm md:text-base text-gray-600 leading-relaxed flex-grow text-center">
-                  {item.desc}
-                </p>
-              </motion.div>
+                <span className="ws-display text-[1.25rem] leading-snug sm:text-[1.5rem]">{p}</span>
+              </Reveal>
             ))}
-          </div>
+          </ol>
         </div>
-      </section>
+        <MaskedImage
+          src={WHAT_IS.image.src}
+          alt={WHAT_IS.image.alt}
+          className="aspect-[623/560] lg:col-span-5 lg:col-start-8"
+        />
+      </div>
+    </section>
 
-      {/* Advantages of our services Section */}
-      <section className="py-20 bg-gradient-to-br from-orange-50 via-red-50 to-orange-50 border-t border-b border-red-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Advantages of our <span className="text-red-600">Services</span>
-            </h2>
-            <div className="w-24 h-1 bg-red-600 mx-auto rounded-full" />
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-            {[
-              { icon: Zap, title: "Productivity Surge", desc: "Safe employees are 20% more productive. " },
-              { icon: HeartPulse, title: "Healthcare Savings", desc: "Lower health insurance claims." },
-              { icon: Headphones, title: "24/7 Support", desc: "24/7 Travel Safety Support." },
-              { icon: ShieldCheck, title: "Travel Safety Desk", desc: "Employee 24/7 Travel Safety Desk." },
-              { icon: Smile, title: "Morale & Retention", desc: "Boosts employee morale and reduces attrition." }
-            ].map((item, index) => (
-              <motion.div
-                key={index}
-                className="bg-gray-50 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 group h-full flex flex-col"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ y: -5 }}
-              >
-                <div className="w-14 h-14 bg-white rounded-xl flex items-center justify-center mb-6 mx-auto shadow-sm group-hover:bg-red-600 transition-colors duration-300">
-                  <item.icon className="w-7 h-7 text-red-600 group-hover:text-white transition-colors duration-300" />
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{item.title}</h3>
-                <p className="text-gray-600 leading-relaxed flex-grow">
-                  {item.desc}
-                </p>
-              </motion.div>
-            ))}
-          </div>
+    {/* 3. What do we offer? A statement on charcoal */}
+    <section aria-labelledby="offer-title" className="ws-grain relative bg-charcoal-900 text-ivory-50">
+      <StepEdge fill="bg-ivory-200" height={110} />
+      <GridLines tone="charcoal" />
+      <div className="ws-shell relative grid grid-cols-1 gap-8 pb-20 pt-6 sm:pb-28 lg:grid-cols-12 lg:gap-6 lg:pb-36">
+        <div className="lg:col-span-3">
+          {/* Original section heading, now set as a real heading */}
+          <h2 id="offer-title" className="ws-display text-display-sm text-sage-200">
+            {OFFER.title}
+          </h2>
         </div>
-      </section>
-
-      {/* Video Section */}
-      <div className="mb-16 "></div>
-
-      {/* Subscription Plans */}
-      <div
-        ref={plansRef}
-        className="mb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 "
-      >
-        <div className="text-center mb-12">
-             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 inline-block border-b-4 border-red-600 pb-2">
-              Subscription Plan:
-            </h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {subscriptionPlans.map((plan, index) => (
-            <motion.div
-              key={index}
-              className="rounded-3xl p-6 shadow-lg bg-gradient-to-br from-amber-50 to-orange-50 border border-orange-100 flex flex-col hover:shadow-xl transition-shadow duration-300"
-              initial={{ opacity: 0, y: 30 }}
-              animate={plansInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
-              <div className="mb-6 text-center border-b border-orange-200 pb-4">
-                <h3 className="text-xl font-bold text-gray-900 mb-1 underline decoration-red-500/50 decoration-2 underline-offset-4">
-                  {plan.name} @ {plan.price}/-
-                </h3>
-              </div>
-              <ul className="space-y-3 flex-grow">
-                {plan.features.map((feature, idx) => (
-                  <li key={idx} className="flex items-start space-x-2">
-                     <CheckCircle className="w-4 h-4 text-gray-900 mt-1 flex-shrink-0" />
-                    <span className="text-gray-900 text-sm font-medium text-left">
-                      {feature}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
-        </div>
-
-        <div className="text-center mt-12">
-          <p className="text-gray-600 text-sm">
-            To access Advanced services, a subscription is required. If not
-            subscribed, these services will be{" "}
-            <span className="underline font-semibold">
-              viewable but not usable
-            </span>
-            .
+        <Reveal className="lg:col-span-9">
+          <p className="ws-display max-w-[52rem] text-[clamp(1.3rem,2.2vw,2.1rem)] font-normal leading-[1.3] tracking-[-0.015em] text-ivory-50">
+            {OFFER.before}
+            <strong className="font-medium text-sage-200">{OFFER.strong}</strong>
+            {OFFER.after}
           </p>
+        </Reveal>
+      </div>
+    </section>
+
+    {/* 4. Benefits: two-column numbered index */}
+    <section aria-labelledby="benefits-title" className="relative bg-ivory-100">
+      <GridLines tone="ivory" />
+      <div className="ws-shell relative py-20 sm:py-28 lg:py-36">
+        <SectionIntro
+          titleLines={[BENEFITS.title]}
+          id="benefits-title"
+        />
+        <ol className="grid grid-cols-1 md:grid-cols-2 md:gap-x-6">
+          {BENEFITS.items.map((b, i) => (
+            <Reveal
+              as="li"
+              key={b.title}
+              delay={(i % 2) * 0.08}
+              className="group grid grid-cols-[1fr_auto] items-start gap-x-4 border-b border-forest-700/20 py-7 sm:py-8"
+            >
+              <div>
+                <h3 className="ws-display text-[1.25rem] leading-tight transition-colors duration-500 group-hover:text-forest-500 sm:text-[1.4rem]">
+                  {b.title}
+                </h3>
+                <p className="mt-3 max-w-[30rem] leading-relaxed text-forest-700/85">{b.desc}</p>
+              </div>
+              <b.icon
+                aria-hidden="true"
+                strokeWidth={1.1}
+                className="mt-1 h-7 w-7 text-forest-600 transition-transform duration-700 ease-editorial group-hover:-rotate-6 group-hover:scale-110"
+              />
+            </Reveal>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    {/* 5. Advantages: a five-column forest band */}
+    <section aria-labelledby="adv-title" className="ws-grain relative bg-forest-700 text-ivory-50">
+      <GridLines tone="forest" />
+      <div className="ws-shell relative py-20 sm:py-28 lg:py-32">
+        <div className="grid grid-cols-1 gap-6 pb-12 lg:grid-cols-12 lg:items-end lg:pb-16">
+          <div className="lg:col-span-8">
+            <h2 id="adv-title" className="ws-display text-display-lg">
+              <MaskedLines lines={ADVANTAGES.titleLines} />
+            </h2>
+          </div>
+        </div>
+        <ul className="grid grid-cols-1 border-t border-ivory-50/20 sm:grid-cols-2 lg:grid-cols-5">
+          {ADVANTAGES.items.map((a, i) => (
+            <Reveal
+              as="li"
+              key={a.title}
+              delay={i * 0.07}
+              className={`flex flex-col gap-6 border-b border-ivory-50/20 py-8 sm:px-5 lg:min-h-[19rem] lg:border-b-0 lg:py-10 ${
+                i % 2 === 1 ? 'sm:border-l' : ''
+              } ${i > 0 ? 'lg:border-l' : 'lg:pl-0'} border-ivory-50/20 ${i % 2 === 0 ? 'sm:pl-0' : ''}`}
+            >
+              <a.icon aria-hidden="true" strokeWidth={1.1} className="h-7 w-7 text-sage-200" />
+              <h3 className="ws-display text-[1.2rem] leading-tight lg:mt-auto">{a.title}</h3>
+              <p className="text-ivory-100/80">{a.desc}</p>
+            </Reveal>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    {/* 6. Subscription plans */}
+    <section aria-labelledby="plans-title" className="relative bg-ivory-50">
+      <div className="ws-shell relative py-20 sm:py-28 lg:py-36">
+        <div className="grid grid-cols-1 gap-6 pb-12 lg:grid-cols-12 lg:items-end lg:pb-16">
+          <div className="lg:col-span-7">
+            <h2 id="plans-title" className="ws-display text-display-lg">
+              <MaskedLines lines={[PLANS_COPY.title]} />
+            </h2>
+          </div>
+          <Reveal delay={0.15} className="text-[1.02rem] leading-relaxed text-forest-700/90 lg:col-span-5">
+            {PLANS_COPY.noteBefore}
+            <span className="font-medium underline decoration-1 underline-offset-4">{PLANS_COPY.noteEmphasis}</span>
+            {PLANS_COPY.noteAfter}
+          </Reveal>
         </div>
 
-        <div className="flex justify-center mt-10">
-          <Link to="/contact">
-            <motion.button
-              className="px-8 py-4 bg-gradient-to-r from-red-600 to-red-700 text-white font-semibold rounded-lg hover:from-red-700 hover:to-red-800 transition-all duration-300 shadow-lg flex items-center gap-2"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              Contact us <ArrowRight className="w-5 h-5" />
-            </motion.button>
+        <Reveal>
+          <PlanComparison />
+        </Reveal>
+
+        <div className="mt-12 flex justify-end">
+          <Link to={PLANS_COPY.cta.to} className="ws-btn-dark">
+            {PLANS_COPY.cta.label}
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
         </div>
       </div>
+    </section>
 
-  
-      {/* App Download Section */}
-      <section
-        ref={appSectionRef}
-        className=" bg-gradient-to-br from-orange-50 via-red-50 to-orange-50 relative overflow-hidden"
-      >
-        <div className="max-w-8xl mx-auto px-4 sm:px-10 lg:px-0   ">
-          <div className="  grid grid-cols-1 lg:grid-cols-[1fr_2.8fr]   items-center  ">
-
-             {/* Left Side Image */}
-            <motion.div
-              className="relative    flex justify-start lg:justify-start "
-              initial={{ opacity: 0, x: 50 }}
-              animate={appSectionInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.4 }}
-            >
-              <LazyImage
-                src="/images/Phone.png"
-                alt="Mobile App Interface"
-                className="w-80 lg:w-96 h-auto drop-shadow-2xl"
-              />
-            </motion.div>
-
-            {/* Right side Content */}
-            <motion.div
-              className="text-left space-y-6 "
-              initial={{ opacity: 0, x: -50 }}
-              animate={appSectionInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.8 }}
-            >
-              <motion.h2
-                className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight"
-                initial={{ opacity: 0, y: 30 }}
-                animate={appSectionInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.8, delay: 0.2 }}
-              >
-                Securring a community of {" "}
-                <motion.span
-                  className="bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 bg-clip-text text-transparent"
-                  animate={{
-                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
-                  
-                >
-                  5 lakh
-                </motion.span>{" "}
-               and growing.
-              </motion.h2>
-
-              {/* 5 Stars */}
-               <motion.div
-                className="flex space-x-2"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={appSectionInView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ duration: 0.8, delay: 0.4 }}
-              >
-                {[...Array(5)].map((_, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, rotate: -180, scale: 0 }}
-                    animate={appSectionInView ? { 
-                      opacity: 1, 
-                      rotate: 0, 
-                      scale: 1 
-                    } : {}}
-                    transition={{ 
-                      duration: 0.6, 
-                      delay: 0.6 + (index * 0.1),
-                      type: "spring",
-                      stiffness: 200
-                    }}
-                  >
-                    <Star 
-                      className="w-10 h-10 text-yellow-500 fill-yellow-500" 
-                    />
-                  </motion.div>
-                ))}
-              </motion.div>
-
-
-              {/* App Store Buttons */}
-              <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-                
-                <a
-                  href="https://play.google.com/store/apps/details?id=com.worksafe4567"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <LazyImage
-                    src="images/PlayStore.webp"
-                    alt="Get it on Google Play"
-                    className="h-16 w-40 drop-shadow-lg hover:scale-105 transition-all duration-300"
-                  />
-                </a>
-
-                {/* <a
-                  href="https://apps.apple.com/app/worksafe4567"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <LazyImage
-                    src="images/appstore.webp"
-                    alt="Download on the App Store"
-                    className="h-12 w-auto mt-2 drop-shadow-lg hover:scale-105 transition-all duration-300"
-                  />
-                </a> */}
-                
-              </div>
-            </motion.div>
-                
-           
+    {/* 7. Community + app */}
+    <section aria-labelledby="community-title" className="relative overflow-hidden bg-ivory-200">
+      <GridLines tone="ivory" />
+      <div className="ws-shell relative grid grid-cols-1 items-center gap-10 py-20 sm:py-28 lg:grid-cols-12 lg:gap-6 lg:py-32">
+        <Reveal className="order-2 flex justify-center lg:order-1 lg:col-span-4">
+          {/* Rebuilt app service grid (replaces the old red/pastel Phone.png) */}
+          <div role="img" aria-label={COMMUNITY.imageAlt} className="w-[min(64vw,280px)] -rotate-[4deg]">
+            <PhoneFrame>
+              <ServicesGridScreen />
+            </PhoneFrame>
           </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-red-600 via-red-700 to-red-600">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.h2
-            className="text-3xl md:text-4xl font-bold text-white mb-6"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            Are you ready to make your employees travel safely?
-          </motion.h2>
-          <motion.p
-            className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-                Join countless organizations and families who rely on WorkSafe 24/7 for their daily travel safety.
-          </motion.p>
-          <motion.div
-            className="flex flex-col sm:flex-row gap-6 justify-center"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            <a
-              href="/contact"
-              className="inline-flex items-center px-8 py-4 bg-red-900/70 text-white font-semibold rounded-full hover:scale-105 transition-all duration-300"
-            >
-              Get Started Today
-              <ArrowRight className="ml-2 w-5 h-5" />
+        </Reveal>
+        <div className="order-1 flex flex-col gap-8 lg:order-2 lg:col-span-7 lg:col-start-6">
+          <h2 id="community-title" className="ws-display text-display-md">
+            {COMMUNITY.before}
+            <span className="whitespace-nowrap text-forest-500">{COMMUNITY.highlight}</span>
+            {COMMUNITY.after}
+          </h2>
+          <Reveal delay={0.15} className="flex flex-wrap items-center gap-6">
+            <span className="flex gap-1.5" aria-hidden="true">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star key={i} className="h-6 w-6 fill-forest-600 text-forest-600" strokeWidth={1} />
+              ))}
+            </span>
+            <a href={PLAY_STORE_URL} target="_blank" rel="noopener noreferrer" className="transition-opacity hover:opacity-85">
+              <img src="/images/PlayStore.webp" alt="Get it on Google Play" className="h-14 w-auto" loading="lazy" />
             </a>
-            <a
-              href="tel:18002104567"
-              className="inline-flex items-center px-8 py-4 border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-gray-900 transition-all duration-300"
-            >
-              <Phone className="mr-2 w-5 h-5" />
-              Call 1800 210 4567
-            </a>
-          </motion.div>
+          </Reveal>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <Footer />
-    </div>
-  );
-};
+    {/* 8. Closing CTA */}
+    <section aria-labelledby="platform-cta-title" className="ws-grain relative bg-forest-700 text-ivory-50">
+      <GridLines tone="forest" />
+      <div className="ws-shell relative grid grid-cols-1 gap-10 py-20 sm:py-28 lg:grid-cols-12 lg:items-end lg:gap-6 lg:py-36">
+        <h2 id="platform-cta-title" className="ws-display text-display-md lg:col-span-8">
+          {PLATFORM_CTA.title}
+        </h2>
+        <Reveal delay={0.15} className="flex flex-col gap-8 lg:col-span-4">
+          <p className="leading-relaxed text-ivory-100/85">{PLATFORM_CTA.text}</p>
+          <div className="flex flex-wrap gap-3">
+            <Link to={PLATFORM_CTA.primary.to} className="ws-btn-ivory">
+              {PLATFORM_CTA.primary.label}
+              <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
+            <a href={PLATFORM_CTA.phone.href} className="ws-btn-line-light">
+              <Phone className="h-4 w-4" aria-hidden="true" />
+              {PLATFORM_CTA.phone.label}
+            </a>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  </PageShell>
+)
 
-export default PlatformServices;
+export default PlatformServices

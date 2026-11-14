@@ -1,50 +1,9 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
-import Header from '../components/Header'
-import Footer from '../components/Footer'
+import LegalLayout from '../components/layout/LegalLayout'
 
+/* Legal text below is the original content, unchanged. Styling comes from LegalLayout (.ws-prose .ws-legal). */
 const TermsConditions = () => {
   return (
-    <>
-      <Header />
-      
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-red-50 to-blue-50 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.h1
-            className="text-4xl md:text-5xl font-bold text-gray-900 mb-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            TERMS & CONDITIONS
-          </motion.h1>
-          
-          <motion.div
-            className="flex items-center justify-center space-x-2 text-gray-600"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
-            <Link to="/" className="text-red-600 hover:text-red-700 transition-colors">
-              Home
-            </Link>
-            <span>&gt;&gt;</span>
-            <span>TERMS & CONDITIONS</span>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Content Section */}
-      <section className="py-16 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="prose prose-lg max-w-none"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
+    <LegalLayout title="Terms & Conditions" titleLines={["Terms &","Conditions"]} path="/terms-conditions">
             <h2 className="text-3xl font-bold text-gray-900 mb-6">TERMS OF USE</h2>
             
             <div className="space-y-6 text-gray-700 leading-relaxed">
@@ -195,12 +154,7 @@ const TermsConditions = () => {
               <h3 className="text-xl font-semibold text-gray-900 mt-8 mb-4">Governing Law and Dispute Resolution</h3>
               <p>Terms and conditions of the User Agreement shall be governed by Indian Law and are subject to the jurisdiction only of the Courts of Mumbai, Maharashtra, India. The Parties to this Agreement hereby submit to the exclusive jurisdiction of the Courts of Mumbai, Maharashtra, India.</p>
             </div>
-          </motion.div>
-        </div>
-      </section>
-
-      <Footer />
-    </>
+    </LegalLayout>
   )
 }
 

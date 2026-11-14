@@ -1,51 +1,9 @@
+import LegalLayout from '../components/layout/LegalLayout'
 
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
-import Header from '../components/Header'
-import Footer from '../components/Footer'
-
+/* Legal text below is the original content, unchanged. Styling comes from LegalLayout (.ws-prose .ws-legal). */
 const PrivacyPolicy = () => {
   return (
-    <>
-      <Header />
-      
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-red-50 to-blue-50 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.h1
-            className="text-4xl md:text-5xl font-bold text-gray-900 mb-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            PRIVACY POLICY
-          </motion.h1>
-          
-          <motion.div
-            className="flex items-center justify-center space-x-2 text-gray-600"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
-            <Link to="/" className="text-red-600 hover:text-red-700 transition-colors">
-              Home
-            </Link>
-            <span>&gt;&gt;</span>
-            <span>PRIVACY POLICY</span>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Content Section */}
-      <section className="py-16 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="prose prose-lg max-w-none"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
+    <LegalLayout title="Privacy Policy" titleLines={["Privacy Policy"]} path="/privacy-policy">
             <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">CAPTAIN INDIA PRIVACY POLICY</h2>
             
             <div className="space-y-8 text-gray-700 leading-relaxed">
@@ -279,12 +237,7 @@ const PrivacyPolicy = () => {
 
              
             </div>
-          </motion.div>
-        </div>
-      </section>
-
-      <Footer />
-    </>
+    </LegalLayout>
   )
 }
 

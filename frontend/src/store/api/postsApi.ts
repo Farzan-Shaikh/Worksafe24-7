@@ -73,7 +73,21 @@ const formatDate = (dateString: string): string => {
 };
 
 // Transform WordPress post to our BlogPost format
-const transformPost = (post: WordPressPost): BlogPost => {
+/**
+ * Site style: no em dashes in visible text. WordPress posts use them for
+ * parenthetical and clause breaks, which read the same with a comma.
+ * Applied at display time only; the CMS content is not modified.
+ */
+const EM_DASH = /\s*(?:\u2014|&#8212;|&#x2014;|&mdash;)\s*/gi;
+const withoutEmDash = (s: string): string => s.replace(EM_DASH, ', ');
+
+const transformPost = (rawPost: WordPressPost): BlogPost => {
+    const post: WordPressPost = {
+        ...rawPost,
+        title: { rendered: withoutEmDash(rawPost.title.rendered) },
+        excerpt: { rendered: withoutEmDash(rawPost.excerpt.rendered) },
+        content: { rendered: withoutEmDash(rawPost.content.rendered) },
+    };
     return {
         id: post.id,
         slug: post.slug,
@@ -91,6 +105,11 @@ const transformPost = (post: WordPressPost): BlogPost => {
             stripHtml(post.content.rendered || post.excerpt.rendered)
         ),
     };
+};
+
+/** Minimal shape of the RTK Query cache read by the queryFns below (replaces `as any`) */
+type CacheState = {
+    postsApi?: { queries?: Record<string, { data?: unknown } | undefined> };
 };
 
 // Create RTK Query API
@@ -116,7 +135,7 @@ export const postsApi = createApi({
         getPostById: builder.query<BlogPost | undefined, number>({
             queryFn: async (id, api): Promise<{ data: BlogPost } | { error: { status: number; data: string } }> => {
                 // Try to get from cache first
-                const state = api.getState() as any;
+                const state = api.getState() as CacheState;
                 const cachedPosts = state.postsApi?.queries?.['getPosts(undefined)']?.data as BlogPost[] | undefined;
 
                 if (cachedPosts) {
@@ -132,7 +151,7 @@ export const postsApi = createApi({
                 );
 
                 // Re-check cache after fetching
-                const updatedState = api.getState() as any;
+                const updatedState = api.getState() as CacheState;
                 const updatedPosts = updatedState.postsApi?.queries?.['getPosts(undefined)']?.data as BlogPost[] | undefined;
 
                 if (updatedPosts) {
@@ -149,7 +168,7 @@ export const postsApi = createApi({
         getPostBySlug: builder.query<BlogPost | undefined, string>({
             queryFn: async (slug, api): Promise<{ data: BlogPost } | { error: { status: number; data: string } }> => {
                 // Try to get from cache first
-                const state = api.getState() as any;
+                const state = api.getState() as CacheState;
                 const cachedPosts = state.postsApi?.queries?.['getPosts(undefined)']?.data as BlogPost[] | undefined;
 
                 if (cachedPosts) {
@@ -165,7 +184,7 @@ export const postsApi = createApi({
                 );
 
                 // Re-check cache after fetching
-                const updatedState = api.getState() as any;
+                const updatedState = api.getState() as CacheState;
                 const updatedPosts = updatedState.postsApi?.queries?.['getPosts(undefined)']?.data as BlogPost[] | undefined;
 
                 if (updatedPosts) {

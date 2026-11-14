@@ -18,7 +18,7 @@ const SEOHead: React.FC<SEOProps> = ({
   title = 'WorkSafe24/7 - Advanced Safety Solutions for Workforce',
   description = 'Tech-Enabled Life Safety Services. Trusted Partner for employee safety. WorkSafe24/7 - Always On for workforce protection with 24/7 Safety Desk, Emergency SOS, Ambulance Service, and comprehensive employee wellbeing solutions.',
   keywords = 'employee safety, workforce protection, emergency SOS, ambulance service, roadside assistance, POSH compliance, mental health support, travel safety, employee wellbeing, safety management, WorkSafe24/7',
-  image = 'https://worksafe247.com/images/worksafelogo.png',
+  image = 'https://worksafe247.com/brand/worksafe-logo.png',
   url = 'https://worksafe247.com',
   type = 'website',
   author = 'WorkSafe24/7',
@@ -36,7 +36,7 @@ const SEOHead: React.FC<SEOProps> = ({
     name: 'WorkSafe24/7',
     description: 'Advanced Safety Solutions for Workforce - Tech-Enabled Life Safety Services',
     url: 'https://worksafe247.com',
-    logo: 'https://worksafe247.com/images/worksafelogo.png',
+    logo: 'https://worksafe247.com/brand/worksafe-logo.png',
     contactPoint: {
       '@type': 'ContactPoint',
       telephone: '+91-1800-210-4567',
