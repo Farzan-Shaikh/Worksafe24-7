@@ -8,7 +8,7 @@ import { PLAY_STORE_URL } from '../../data/site'
 const JoinNetwork = () => (
   <section aria-labelledby="join-title" className="relative bg-ivory-200 text-forest-700">
     <GridLines tone="ivory" />
-    <div className="ws-shell relative pb-16 pt-20 sm:pb-20 sm:pt-28 lg:pb-24 lg:pt-36">
+    <div className="ws-shell relative pb-14 pt-20 sm:pb-16 sm:pt-28 lg:pb-20 lg:pt-36">
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-6">
         <div className="lg:col-span-6">
           <h2 id="join-title" className="ws-display text-display-lg">
@@ -34,8 +34,14 @@ const JoinNetwork = () => (
       </div>
     </div>
 
-    {/* Staircase transition into the photograph, which then meets the footer */}
-    <StaircaseReveal src={JOIN.image} alt="Join the Safety Network" fill="bg-ivory-200" />
+    {/* Staircase transition straight into the forest footer (the decorative photo was removed) */}
+    <StaircaseReveal
+      fill="bg-ivory-200"
+      base="ws-grain bg-forest-700"
+      minDepth={0.08}
+      maxDepth={0.92}
+      className="h-[clamp(120px,22vw,260px)]"
+    />
   </section>
 )
 

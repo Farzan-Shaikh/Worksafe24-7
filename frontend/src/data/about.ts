@@ -52,14 +52,17 @@ export const LEADERS = {
     {
       name: 'Heena Khan',
       role: 'Co-Founder & Director',
-      image: '/images/HeenaKhan.webp',
+      image: '/images/HeenaKhan.webp' as string | null,
       bio: 'At Worksafe24/7, Heena Khan leads operations, digital processes, and compliance. With her engineering expertise, she ensures efficiency, transparency, and a seamless safety service experience for corporates and other firms.',
       quote: 'Clear communication and accountability are at the core of every successful project.',
     },
     {
       name: 'Kirti Kumar Jain',
       role: 'Director',
-      image: '/images/PramoudRao3.jpg',
+      // Portrait removed pending the new photograph. To add it, place the file in
+      // public/images/team/ and set the path here, e.g. '/images/team/kirti-kumar-jain.jpg'.
+      // While null, the card shows a neutral branded placeholder (no portrait).
+      image: null,
       bio: 'Marketing graduate from Queen Mary University of London with business administration expertise and family business experience in marketing and sales, seeking an entry-level role to drive growth and build my career.',
       quote: 'Innovation and strategic vision drive meaningful impact in the safety industry.',
     },

@@ -5,6 +5,8 @@ import PageHero from '../components/layout/PageHero'
 import SEOHead from '../components/SEOHead'
 import GridLines from '../components/ui/GridLines'
 import MaskedImage from '../components/ui/MaskedImage'
+import ColourPhoto from '../components/ui/ColourPhoto'
+import { LogoArt } from '../components/ui/Logo'
 import Reveal, { MaskedLines } from '../components/ui/Reveal'
 import SectionIntro from '../components/ui/SectionIntro'
 import StepEdge from '../components/ui/StepEdge'
@@ -77,14 +79,16 @@ const AboutUs = () => (
         {/* Rebuilt from AB.webp: the team photo (monochrome) beside a vector version of its cycle diagram */}
         <div className="mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-8 md:grid-cols-2 md:gap-6">
           <Reveal>
-            <img
-              src={ABOUT_HERO.ecosystemImage.src}
-              alt={ABOUT_HERO.ecosystemImage.alt}
-              width={879}
-              height={812}
-              className="mx-auto w-full max-w-[560px] mix-blend-multiply"
-              loading="eager"
-            />
+            <ColourPhoto className="mx-auto w-full max-w-[560px]">
+              <img
+                src={ABOUT_HERO.ecosystemImage.src}
+                alt={ABOUT_HERO.ecosystemImage.alt}
+                width={879}
+                height={812}
+                className="ws-photo w-full mix-blend-multiply"
+                loading="eager"
+              />
+            </ColourPhoto>
           </Reveal>
           <Reveal delay={0.15}>
             <EcosystemCycle nodes={ABOUT_HERO.ecosystem.nodes} quote={ABOUT_HERO.ecosystem.quote} className="mx-auto w-full max-w-[460px]" />
@@ -207,19 +211,34 @@ const AboutUs = () => (
               as="li"
               key={p.name}
               delay={i * 0.12}
-              className={`ws-photo-hover flex flex-col ${
+              className={`flex flex-col ${
                 i === 0 ? 'lg:col-span-5' : 'md:mt-24 lg:col-span-5 lg:col-start-8 lg:mt-40'
               }`}
             >
-              <div className="relative aspect-[3/4] overflow-hidden bg-ivory-300">
-                <img
-                  src={p.image}
-                  alt={p.name}
-                  className="ws-photo h-full w-full object-cover object-top"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
+              {p.image ? (
+                <ColourPhoto className="relative aspect-[3/4] overflow-hidden bg-ivory-300">
+                  <img
+                    src={p.image}
+                    alt={p.name}
+                    className="ws-photo h-full w-full object-cover object-top"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </ColourPhoto>
+              ) : (
+                // Portrait pending: neutral branded frame, same 3:4 size, no generated face
+                <div
+                  role="img"
+                  aria-label={`Portrait of ${p.name} coming soon`}
+                  className="relative grid aspect-[3/4] place-items-center overflow-hidden border border-forest-700/15 bg-ivory-100"
+                >
+                  <div aria-hidden="true" className="absolute inset-6 border border-dashed border-forest-700/15" />
+                  <div className="flex flex-col items-center gap-5 px-8 text-center">
+                    <LogoArt className="w-40 opacity-80 sm:w-48" />
+                    <p className="ws-eyebrow text-forest-500">Portrait coming soon</p>
+                  </div>
+                </div>
+              )}
               <div className="flex flex-col gap-4 pt-7">
                 <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 border-b border-forest-700/20 pb-4">
                   <h3 className="ws-display text-[1.5rem] leading-tight">{p.name}</h3>

@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 import GridLines from '../ui/GridLines'
-import MaskedImage from '../ui/MaskedImage'
 import SectionIntro from '../ui/SectionIntro'
 import { CTA } from '../../data/home'
 import { PLAY_STORE_URL } from '../../data/site'
@@ -28,13 +27,6 @@ const ClosingCta = () => (
         </div>
       </SectionIntro>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12">
-        <MaskedImage
-          src={CTA.image}
-          alt="Safe and Happy User"
-          className="mt-10 aspect-[4/3] sm:aspect-[21/9] lg:col-span-10 lg:col-start-3 lg:mt-16"
-        />
-      </div>
     </div>
   </section>
 )

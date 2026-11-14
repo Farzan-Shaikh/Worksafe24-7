@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from 'framer-motion'
 
 /**
- * Staircase reveal (after the Crosswalk reference): a full-bleed monochrome photograph
+ * Staircase reveal (after the Crosswalk reference): a full-bleed surface (optionally a photograph)
  * covered by blocks in the colour of the section above, one per grid column.
  * As the photo scrolls into view the blocks retract upward one after another and settle
  * into a stepped edge that descends from left to right.
@@ -57,8 +57,11 @@ const Step = ({
 }
 
 type Props = {
-  src: string
-  alt: string
+  /** Optional photograph behind the steps; without it the steps open onto `base` */
+  src?: string
+  alt?: string
+  /** Surface revealed under the steps (the section or footer below) */
+  base?: string
   /** Background class of the section above (the steps are cut from it) */
   fill?: string
   /** Shallowest and deepest step, as fractions of the photo height */
@@ -70,7 +73,8 @@ type Props = {
 
 const StaircaseReveal = ({
   src,
-  alt,
+  alt = '',
+  base = 'bg-charcoal-900',
   fill = 'bg-ivory-200',
   minDepth = 0.06,
   maxDepth = 0.34,
@@ -84,8 +88,8 @@ const StaircaseReveal = ({
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'start 0.3'] })
 
   return (
-    <div ref={ref} className={`relative w-full overflow-hidden bg-charcoal-900 ${className}`}>
-      <img src={src} alt={alt} className={`absolute inset-0 h-full w-full object-cover ${imgClassName}`} loading="lazy" decoding="async" />
+    <div ref={ref} aria-hidden={src ? undefined : true} className={`relative w-full overflow-hidden ${base} ${className}`}>
+      {src && <img src={src} alt={alt} className={`absolute inset-0 h-full w-full object-cover ${imgClassName}`} loading="lazy" decoding="async" />}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
         <div className="ws-shell h-full">
           <div className="grid h-full" style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}>

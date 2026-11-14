@@ -1,8 +1,10 @@
 import { motion, useReducedMotion } from 'framer-motion'
+import { useColourTap } from './useColourTap'
 
 /**
  * Image revealed by a clip-path wipe when it scrolls into view,
- * with editorial monochrome treatment (colour returns on hover).
+ * with editorial monochrome treatment: colour returns on hover (desktop)
+ * or on tap (touch). The source file must be the colour original.
  */
 const MaskedImage = ({
   src,
@@ -18,11 +20,13 @@ const MaskedImage = ({
   from?: 'bottom' | 'left'
 }) => {
   const reduce = useReducedMotion()
+  const { bind } = useColourTap<HTMLDivElement>()
   // Every token carries a unit so Framer Motion can interpolate the two shapes
   const hidden = from === 'bottom' ? 'inset(100% 0% 0% 0%)' : 'inset(0% 100% 0% 0%)'
 
   return (
     <motion.div
+      {...bind}
       className={`ws-photo-hover relative overflow-hidden ${className}`}
       initial={reduce ? false : { clipPath: hidden }}
       whileInView={{ clipPath: 'inset(0% 0% 0% 0%)' }}

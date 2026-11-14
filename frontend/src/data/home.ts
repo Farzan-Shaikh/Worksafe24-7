@@ -154,7 +154,6 @@ export const CTA = {
   titleLines: ['Don’t wait for something to happen'],
   text: 'Take action and join the thousands of families and workplaces already using WorkSafe 24/7 to protect their people.',
   contact: { label: 'Contact Us', to: '/contact' },
-  image: '/images/CTASection.webp',
 }
 
 export const JOIN = {
@@ -162,6 +161,4 @@ export const JOIN = {
   lead: 'This isn’t just safety.',
   phrases: ['It’s presence', 'It’s peace', 'It’s people'],
   cta: 'Download App',
-  // People from the original JionSafety.webp; the red service shields and red wall are cropped/neutralised
-  image: '/images/rebrand/join-team.jpg',
 }

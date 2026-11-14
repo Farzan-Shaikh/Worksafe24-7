@@ -1,4 +1,6 @@
 import type { ComponentType } from 'react'
+import { useReducedMotion } from 'framer-motion'
+import ScrollStory from './ScrollStory'
 import GridLines from '../ui/GridLines'
 import PhoneFrame from '../ui/PhoneFrame'
 import Reveal from '../ui/Reveal'
@@ -26,7 +28,32 @@ const SCREENS: Record<string, ComponentType> = {
 /** Staircase offsets for the three steps on desktop */
 const OFFSETS = ['lg:mt-0', 'lg:mt-28', 'lg:mt-56']
 
-const HowItWorks = () => (
+/** Reduced motion: the three moments as a static, readable sequence (no pinning) */
+const StaticMoments = () => (
+  <div className="relative border-t border-forest-700/20">
+    <div className="ws-shell">
+      <ul className="grid grid-cols-1 gap-12 py-14 sm:grid-cols-3 sm:gap-6">
+        {APP_MOMENTS.map((m) => {
+          const Screen = SCREENS[m.screen]
+          return (
+            <li key={m.title} className="flex flex-col items-center gap-6 text-center">
+              <div className="w-[min(56vw,220px)]">
+                <PhoneFrame>
+                  <Screen />
+                </PhoneFrame>
+              </div>
+              <h3 className="ws-display text-[1.2rem] leading-snug text-forest-700">{m.title}</h3>
+            </li>
+          )
+        })}
+      </ul>
+    </div>
+  </div>
+)
+
+const HowItWorks = () => {
+  const reduce = useReducedMotion()
+  return (
   <section aria-labelledby="how-title" className="relative bg-ivory-200 text-forest-700">
     <GridLines tone="ivory" />
     <div className="ws-shell relative pt-20 sm:pt-28 lg:pt-36">
@@ -57,37 +84,16 @@ const HowItWorks = () => (
       </ol>
     </div>
 
-    {/* App moments: swipe on mobile, three ruled columns from tablet up */}
-    <div className="relative border-t border-forest-700/20">
-      <div className="ws-shell">
-        <ul className="ws-no-scrollbar -mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 py-12 sm:mx-0 sm:grid sm:grid-cols-3 sm:gap-0 sm:overflow-visible sm:px-0 sm:py-0">
-          {APP_MOMENTS.map((m, i) => {
-            const Screen = SCREENS[m.screen]
-            return (
-              <li
-                key={m.title}
-                className={`w-[78%] shrink-0 snap-start sm:w-auto sm:py-14 ${
-                  i > 0 ? 'sm:border-l sm:border-forest-700/20 sm:pl-6' : ''
-                } ${i < APP_MOMENTS.length - 1 ? 'sm:pr-6' : ''}`}
-              >
-                <Reveal delay={i * 0.1}>
-                  {/* Whole phone, centred on an ivory plate */}
-                  <div className="relative aspect-[4/5] overflow-hidden bg-ivory-50">
-                    <div className="absolute left-1/2 top-1/2 w-[50%] -translate-x-1/2 -translate-y-1/2">
-                      <PhoneFrame>
-                        <Screen />
-                      </PhoneFrame>
-                    </div>
-                  </div>
-                  <h3 className="ws-display mt-6 text-[1.2rem] leading-snug text-forest-700">{m.title}</h3>
-                </Reveal>
-              </li>
-            )
-          })}
-        </ul>
+    {/* App moments: vertical scroll drives the three phones (static when motion is reduced) */}
+    {reduce ? (
+      <StaticMoments />
+    ) : (
+      <div className="relative border-t border-forest-700/20">
+        <ScrollStory items={APP_MOMENTS.map((m) => ({ title: m.title, Screen: SCREENS[m.screen] }))} />
       </div>
-    </div>
+    )}
   </section>
-)
+  )
+}
 
 export default HowItWorks

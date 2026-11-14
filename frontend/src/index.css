@@ -35,9 +35,21 @@ body {
     /* Page gutter per breakpoint; never narrower than the device safe area (viewport-fit=cover) */
     --ws-gutter: 1.25rem;
   }
-  @media (min-width: 640px) { :root { --ws-gutter: 2rem; } }
-  @media (min-width: 1024px) { :root { --ws-gutter: 3rem; } }
-  @media (min-width: 1280px) { :root { --ws-gutter: 3.5rem; } }
+  @media (min-width: 640px) {
+    :root {
+      --ws-gutter: 2rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    :root {
+      --ws-gutter: 3rem;
+    }
+  }
+  @media (min-width: 1280px) {
+    :root {
+      --ws-gutter: 3.5rem;
+    }
+  }
 
   /* Form text is at least 16px so iOS Safari does not zoom the page on focus.
      :where() keeps specificity at zero, so component classes can still go larger. */
@@ -135,8 +147,15 @@ body {
       filter 0.8s cubic-bezier(0.22, 1, 0.36, 1),
       transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
   }
-  .ws-photo-hover:hover .ws-photo,
-  .ws-photo-hover:focus-within .ws-photo {
+  /* Colour returns on real hover (mouse/trackpad only, so touch devices don't get a
+     "sticky" hover), on keyboard focus, or when tapped (data-colour, see useColourTap). */
+  @media (hover: hover) {
+    .ws-photo-hover:hover .ws-photo {
+      filter: grayscale(0) sepia(0) contrast(1) brightness(1);
+    }
+  }
+  .ws-photo-hover:focus-within .ws-photo,
+  .ws-photo-hover[data-colour="on"] .ws-photo {
     filter: grayscale(0) sepia(0) contrast(1) brightness(1);
   }
 
@@ -192,34 +211,60 @@ body {
 .ws-prose h5 {
   font-family: Manrope, system-ui, sans-serif;
   font-weight: 500;
-  color: #194D3E;
+  color: #194d3e;
   text-wrap: balance;
   letter-spacing: -0.015em;
   line-height: 1.2;
   text-align: left;
   text-decoration: none;
 }
-.ws-prose h2 { font-size: clamp(1.35rem, 2vw, 1.75rem); line-height: 1.25; margin: 2.2em 0 0.75em; }
-.ws-prose h3 { font-size: clamp(1.15rem, 1.5vw, 1.4rem); line-height: 1.3; margin: 2em 0 0.65em; }
+.ws-prose h2 {
+  font-size: clamp(1.35rem, 2vw, 1.75rem);
+  line-height: 1.25;
+  margin: 2.2em 0 0.75em;
+}
+.ws-prose h3 {
+  font-size: clamp(1.15rem, 1.5vw, 1.4rem);
+  line-height: 1.3;
+  margin: 2em 0 0.65em;
+}
 .ws-prose h4,
-.ws-prose h5 { font-size: 1.075rem; font-weight: 600; margin: 1.7em 0 0.5em; }
-.ws-prose > :first-child { margin-top: 0; }
-.ws-prose p { margin-bottom: 0; }
-.ws-prose strong, .ws-prose b { font-weight: 600; color: #194D3E; }
+.ws-prose h5 {
+  font-size: 1.075rem;
+  font-weight: 600;
+  margin: 1.7em 0 0.5em;
+}
+.ws-prose > :first-child {
+  margin-top: 0;
+}
+.ws-prose p {
+  margin-bottom: 0;
+}
+.ws-prose strong,
+.ws-prose b {
+  font-weight: 600;
+  color: #194d3e;
+}
 .ws-prose a {
-  color: #1F5E4B;
+  color: #1f5e4b;
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.2em;
 }
-.ws-prose a:hover { color: #286A55; }
+.ws-prose a:hover {
+  color: #286a55;
+}
 .ws-prose ul,
 .ws-prose ol {
   padding-left: 1.4em;
   margin-top: 1em;
 }
-.ws-prose ul { list-style: none; }
-.ws-prose ul > li { position: relative; }
+.ws-prose ul {
+  list-style: none;
+}
+.ws-prose ul > li {
+  position: relative;
+}
 .ws-prose ul > li::before {
   content: "";
   position: absolute;
@@ -230,16 +275,24 @@ body {
   background: currentColor;
   opacity: 0.6;
 }
-.ws-prose ol { list-style: decimal; }
-.ws-prose ol > li::marker { font-variant-numeric: tabular-nums; font-weight: 500; color: #286A55; }
-.ws-prose li + li { margin-top: 0.5em; }
+.ws-prose ol {
+  list-style: decimal;
+}
+.ws-prose ol > li::marker {
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  color: #286a55;
+}
+.ws-prose li + li {
+  margin-top: 0.5em;
+}
 .ws-prose blockquote {
-  border-left: 1px solid #1F5E4B;
+  border-left: 1px solid #1f5e4b;
   padding: 0.2em 0 0.2em 1.4em;
   font-family: Manrope, system-ui, sans-serif;
   font-size: 1.15rem;
   line-height: 1.5;
-  color: #194D3E;
+  color: #194d3e;
 }
 .ws-prose img,
 .ws-prose figure,
@@ -250,7 +303,11 @@ body {
   margin-top: 2em;
   margin-bottom: 2em;
 }
-.ws-prose figcaption { font-size: 0.85rem; color: #56866F; margin-top: 0.6em; }
+.ws-prose figcaption {
+  font-size: 0.85rem;
+  color: #56866f;
+  margin-top: 0.6em;
+}
 .ws-prose table {
   width: 100%;
   border-collapse: collapse;
@@ -270,51 +327,67 @@ body {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   font-weight: 400;
-  color: #286A55;
+  color: #286a55;
 }
-.ws-prose tr.bg-gray-100 { background: transparent; }
-.ws-prose hr { border-color: rgb(25 77 62 / 0.2); margin: 2.5em 0; }
+.ws-prose tr.bg-gray-100 {
+  background: transparent;
+}
+.ws-prose hr {
+  border-color: rgb(25 77 62 / 0.2);
+  margin: 2.5em 0;
+}
 
 /* Legal documents: neutralise the old tinted boxes into ruled notes */
 .ws-legal .rounded-lg {
   background: transparent;
   border-radius: 0;
-  border-left: 1px solid #1F5E4B;
+  border-left: 1px solid #1f5e4b;
   padding: 0.25em 0 0.25em 1.25em;
-  color: #194D3E;
+  color: #194d3e;
 }
 /* The original red legal notice is set as a forest note (same text, new identity) */
-.ws-legal p.text-red-600 { color: #133B30; }
-.ws-legal .text-gray-500 { color: rgb(25 77 62 / 0.85); }
-.ws-legal h2 { margin-top: 0; }
-.ws-legal h3 { scroll-margin-top: calc(var(--ws-header-h) + 1.5rem); }
-.ws-legal .overflow-x-auto { margin-top: 1.5em; margin-bottom: 1.5em; }
+.ws-legal p.text-red-600 {
+  color: #133b30;
+}
+.ws-legal .text-gray-500 {
+  color: rgb(25 77 62 / 0.85);
+}
+.ws-legal h2 {
+  margin-top: 0;
+}
+.ws-legal h3 {
+  scroll-margin-top: calc(var(--ws-header-h) + 1.5rem);
+}
+.ws-legal .overflow-x-auto {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
 
 @layer components {
-/* Form fields: underline inputs with a drawn focus rule */
-.ws-field {
-  @apply w-full rounded-none border-0 border-b border-forest-700/30 bg-transparent px-0 pb-3 pt-2 text-[1.05rem] text-forest-800
+  /* Form fields: underline inputs with a drawn focus rule */
+  .ws-field {
+    @apply w-full rounded-none border-0 border-b border-forest-700/30 bg-transparent px-0 pb-3 pt-2 text-[1.05rem] text-forest-800
     placeholder:text-forest-700/50 transition-[border-color,box-shadow] duration-300 focus:border-forest-700 focus:outline-none focus:ring-0;
-}
-/* Focus: the underline thickens to 2px so keyboard focus is clearly visible */
-.ws-field:focus,
-.ws-field:focus-visible {
-  outline: none;
-  box-shadow: 0 1px 0 0 #194D3E;
-}
-.ws-field[aria-invalid="true"]:focus {
-  box-shadow: 0 1px 0 0 #8C3B2A;
-}
-.ws-field[aria-invalid="true"] {
-  @apply border-alert;
-}
-select.ws-field {
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%231F5E4B' stroke-width='1.4'%3E%3Cpath d='M1 1.5l5 5 5-5'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 0.2rem center;
-  padding-right: 1.5rem;
-}
+  }
+  /* Focus: the underline thickens to 2px so keyboard focus is clearly visible */
+  .ws-field:focus,
+  .ws-field:focus-visible {
+    outline: none;
+    box-shadow: 0 1px 0 0 #194d3e;
+  }
+  .ws-field[aria-invalid="true"]:focus {
+    box-shadow: 0 1px 0 0 #8c3b2a;
+  }
+  .ws-field[aria-invalid="true"] {
+    @apply border-alert;
+  }
+  select.ws-field {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%231F5E4B' stroke-width='1.4'%3E%3Cpath d='M1 1.5l5 5 5-5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.2rem center;
+    padding-right: 1.5rem;
+  }
 }
 
 /* Floating WhatsApp button: clear of the home indicator / rounded corners (viewport-fit=cover) */
@@ -332,23 +405,56 @@ select.ws-field {
 /* WhatsApp signal ring: a small pulse that stays inside the viewport (the generic
    ws-pulse grows 2.2x and pushed past the right edge on phones) */
 @keyframes ws-pulse-contained {
-  0% { transform: scale(1); opacity: 0.7; }
-  100% { transform: scale(1.45); opacity: 0; }
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1.45);
+    opacity: 0;
+  }
 }
-.ws-pulse-contained { animation: ws-pulse-contained 3.2s cubic-bezier(0.22, 1, 0.36, 1) infinite; }
+.ws-pulse-contained {
+  animation: ws-pulse-contained 3.2s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+/* Four Dimensions: ambient glyph loops run only while the visitor scrolls the section.
+   `animation-play-state` pauses in place, so loops resume from where they stopped. */
+.ws-scroll-anim [class*="animate-ws-"],
+.ws-scroll-anim .ws-scan {
+  animation-play-state: paused;
+}
+.ws-scroll-anim[data-scrolling="on"] [class*="animate-ws-"],
+.ws-scroll-anim[data-scrolling="on"] .ws-scan {
+  animation-play-state: running;
+}
 
 /* Feature glyph motion */
 @keyframes ws-needle {
-  0%, 100% { transform: rotate(-58deg); }
-  45% { transform: rotate(38deg); }
-  60% { transform: rotate(30deg); }
+  0%,
+  100% {
+    transform: rotate(-58deg);
+  }
+  45% {
+    transform: rotate(38deg);
+  }
+  60% {
+    transform: rotate(30deg);
+  }
 }
 .ws-needle {
   animation: ws-needle 7s cubic-bezier(0.22, 1, 0.36, 1) infinite;
 }
 @keyframes ws-scan {
-  0%, 100% { transform: translateY(-62px); opacity: 0.2; }
-  50% { transform: translateY(62px); opacity: 1; }
+  0%,
+  100% {
+    transform: translateY(-62px);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translateY(62px);
+    opacity: 1;
+  }
 }
 .ws-scan {
   animation: ws-scan 4.5s ease-in-out infinite;
